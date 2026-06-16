@@ -32,7 +32,18 @@ app.get("/",(req,res)=>{
     res.send("Hello from Server")
 })
 
+// Generic error handler to return JSON for runtime errors and body parser errors
+app.use((err, req, res, next) => {
+    console.error('Unhandled error:', err && err.stack ? err.stack : err)
+    if (res.headersSent) return next(err)
+    if (err && err.type === 'entity.parse.failed') {
+        return res.status(400).json({ message: 'Invalid JSON payload' })
+    }
+    const status = err && err.status ? err.status : 500
+    return res.status(status).json({ message: err && err.message ? err.message : 'Internal Server Error' })
+})
+
 app.listen(port , ()=>{
-    console.log("Server Started")
-    connectDb()
+        console.log("Server Started")
+        connectDb()
 })

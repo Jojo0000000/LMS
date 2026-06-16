@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { serverUrl } from '../App';
 import start from "../assets/start.mp3"
-import Course from '../../../backend/model/courseModel';
 function SearchWithAi() {
     const startSound = new Audio(start)
     const navigate = useNavigate()

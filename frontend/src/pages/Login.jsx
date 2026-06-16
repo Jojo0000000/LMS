@@ -52,7 +52,8 @@ function Login() {
                 toast.success("Login Successfully")
           } catch (error) {
             console.log(error)
-            toast.error(error.response.data.message)
+            const errorMessage = error?.response?.data?.message || error?.message || "Google login failed"
+            toast.error(errorMessage)
           }
         }
     return (
